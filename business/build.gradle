@@ -1,0 +1,52 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+apply from: "${rootDir}/build-library-versions.gradle"
+
+android {
+    compileSdkVersion androidTargetSdkVersion
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode androidVersionCode
+        versionName androidVersionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation project(':core')
+
+    implementation "com.android.support:appcompat-v7:$androidSupportLibraryVersion"
+    testImplementation "junit:junit:$junitLibraryVersion"
+    androidTestImplementation "com.android.support.test:runner:$androidTestRunnerVersion"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espressoLibraryVersion"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    implementation "com.squareup.okhttp3:okhttp:$okHttp3LibraryVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp3LibraryVersion"
+
+    api "com.squareup.retrofit2:retrofit:$retrofitLibraryVersion"
+    api "com.squareup.retrofit2:converter-gson:$retrofitLibraryVersion"
+    api "com.squareup.retrofit2:adapter-rxjava2:$retrofitLibraryVersion"
+    api "io.reactivex.rxjava2:rxandroid:$rxAndroidLibraryVersion"
+
+    //  Dagger2 required Gradle dependencies.
+    api "com.google.dagger:dagger-android:$daggerLibraryVersion"
+    api "com.google.dagger:dagger-android-support:$daggerLibraryVersion"
+}
+
+repositories {
+    mavenCentral()
+}

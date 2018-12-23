@@ -1,0 +1,44 @@
+/**
+ * Shared config for all android subprojects.
+ */
+apply from: "${rootDir}/build-library-versions.gradle"
+
+android {
+    compileSdkVersion androidTargetSdkVersion
+    defaultConfig {
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode androidVersionCode
+        versionName androidVersionName
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    /*flavorDimensions "app"
+    buildTypes {
+        qa {
+            matchingFallbacks = ['qa', 'prod']
+        }
+        prod {
+            matchingFallbacks = ['prod', 'qa']
+        }
+    }
+
+    sourceSets {
+        // Not all subprojects have qa-specific or prod-specific tests, but we standardise the location here just in
+        // case.  See the business subproject for example.
+        testQa {
+            java.srcDirs += ["./src/qa/test"]
+        }
+        testProd {
+            java.srcDirs += ["./src/prod/test"]
+        }
+    }*/
+}
